@@ -1,0 +1,51 @@
+{
+	"name": "RecordSprite",
+	"plugin-id": "Sprite",
+	"sid": 970203092655187,
+	"isGlobal": false,
+	"instanceVariables": [],
+	"behaviorTypes": [],
+	"effectTypes": [],
+	"animations": {
+		"items": [
+			{
+				"frames": [
+					{
+						"width": 960,
+						"height": 720,
+						"originX": 0.5177083333333333,
+						"originY": 0.5041666666666667,
+						"originalSource": "",
+						"exportFormat": "lossless",
+						"exportQuality": 0.8,
+						"fileType": "image/png",
+						"imageSpriteId": 6194044,
+						"collisionPoly": {
+							"points": [
+								0.2035725911458336,
+								0.09674479166666669,
+								0.7606201171874997,
+								0.09761284722222228,
+								0.7497639973958335,
+								0.8891384548611108,
+								0.2286783854166668,
+								0.8407986111111103
+							]
+						},
+						"useCollisionPoly": true,
+						"duration": 1,
+						"tag": ""
+					}
+				],
+				"sid": 218655387555615,
+				"name": "Animation 1",
+				"isLooping": false,
+				"isPingPong": false,
+				"repeatCount": 1,
+				"repeatTo": 0,
+				"speed": 5
+			}
+		],
+		"subfolders": []
+	}
+}

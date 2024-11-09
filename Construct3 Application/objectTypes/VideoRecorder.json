@@ -1,0 +1,12 @@
+{
+	"name": "VideoRecorder",
+	"plugin-id": "GameRecorder",
+	"sid": 757047106368969,
+	"singleglobal-inst": {
+		"type": "VideoRecorder",
+		"properties": {},
+		"uid": 12,
+		"sid": 379401343042280,
+		"tags": ""
+	}
+}

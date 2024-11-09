@@ -1,0 +1,494 @@
+{
+	"name": "Event sheet 1",
+	"events": [
+		{
+			"eventType": "variable",
+			"name": "isRecording",
+			"type": "boolean",
+			"initialValue": "false",
+			"comment": "",
+			"isStatic": false,
+			"isConstant": false,
+			"sid": 603096010359507
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "Button",
+					"sid": 397918255087112
+				}
+			],
+			"actions": [
+				{
+					"type": "script",
+					"script": "ButtonClicked();"
+				}
+			],
+			"sid": 151159119085386
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "Button2",
+					"sid": 648380539809415
+				}
+			],
+			"actions": [
+				{
+					"type": "script",
+					"script": "ButtonClicked2();"
+				}
+			],
+			"sid": 415265472392534
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "Button3",
+					"sid": 624799709110542
+				}
+			],
+			"actions": [
+				{
+					"id": "start-user-media-recording-2",
+					"objectClass": "VideoRecorder",
+					"sid": 431271673408257,
+					"parameters": {
+						"container": "mp4",
+						"video-codec": "none",
+						"audio-codec": "opus",
+						"quality-kbps": "2500"
+					}
+				}
+			],
+			"sid": 664001753404707
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "Button4",
+					"sid": 565169504098549
+				}
+			],
+			"actions": [
+				{
+					"id": "stop-recording",
+					"objectClass": "VideoRecorder",
+					"sid": 431891055344006
+				}
+			],
+			"sid": 598931469007428
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-start-of-layout",
+					"objectClass": "System",
+					"sid": 260752054292597
+				}
+			],
+			"actions": [],
+			"sid": 979180077329378,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "is-recording-supported",
+							"objectClass": "VideoRecorder",
+							"sid": 478497600529662
+						}
+					],
+					"actions": [
+						{
+							"id": "get-media-sources",
+							"objectClass": "UserMedia",
+							"sid": 932625330829433
+						},
+						{
+							"id": "wait-for-previous-actions",
+							"objectClass": "System",
+							"sid": 162844567244301
+						}
+					],
+					"sid": 931992506368454,
+					"children": [
+						{
+							"eventType": "block",
+							"conditions": [
+								{
+									"id": "compare-two-values",
+									"objectClass": "System",
+									"sid": 754315033356995,
+									"parameters": {
+										"first-value": "UserMedia.AudioSourceCount",
+										"comparison": 4,
+										"second-value": "0"
+									}
+								}
+							],
+							"actions": [
+								{
+									"id": "clear",
+									"objectClass": "List",
+									"sid": 413936479915787
+								}
+							],
+							"sid": 110176225233427,
+							"children": [
+								{
+									"eventType": "block",
+									"conditions": [
+										{
+											"id": "repeat",
+											"objectClass": "System",
+											"sid": 473105313886307,
+											"parameters": {
+												"count": "UserMedia.AudioSourceCount"
+											}
+										}
+									],
+									"actions": [
+										{
+											"id": "add-item",
+											"objectClass": "List",
+											"sid": 591462368678710,
+											"parameters": {
+												"text": "\"Microphone \" & loopindex & \" (\" & UserMedia.AudioSourceLabelAt(loopindex) & \")\""
+											}
+										}
+									],
+									"sid": 891353983206611
+								}
+							]
+						}
+					]
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 506172568490980
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "statusText",
+							"sid": 940463134208357,
+							"parameters": {
+								"text": "\"error\""
+							}
+						}
+					],
+					"sid": 412585059329097
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-object-clicked",
+					"objectClass": "Mouse",
+					"sid": 716331526341199,
+					"parameters": {
+						"mouse-button": "left",
+						"click-type": "clicked",
+						"object-clicked": "RecordSprite"
+					}
+				}
+			],
+			"actions": [],
+			"sid": 329513424508156,
+			"children": [
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "compare-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 363900463869647,
+							"parameters": {
+								"variable": "isRecording"
+							},
+							"isInverted": true
+						}
+					],
+					"actions": [
+						{
+							"id": "set-text",
+							"objectClass": "statusText",
+							"sid": 847607044005664,
+							"parameters": {
+								"text": "\"Recording\""
+							}
+						},
+						{
+							"id": "set-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 600944458544411,
+							"parameters": {
+								"variable": "isRecording",
+								"value": "true"
+							}
+						},
+						{
+							"id": "request-microphone",
+							"objectClass": "UserMedia",
+							"sid": 511203932576802,
+							"parameters": {
+								"tag": "\"mic\"",
+								"source": "List.SelectedIndex"
+							}
+						}
+					],
+					"sid": 954068431634207
+				},
+				{
+					"eventType": "block",
+					"conditions": [
+						{
+							"id": "else",
+							"objectClass": "System",
+							"sid": 991074752606911
+						}
+					],
+					"actions": [
+						{
+							"id": "set-boolean-eventvar",
+							"objectClass": "System",
+							"sid": 424306095113557,
+							"parameters": {
+								"variable": "isRecording",
+								"value": "false"
+							}
+						},
+						{
+							"id": "set-text",
+							"objectClass": "statusText",
+							"sid": 274417635478321,
+							"parameters": {
+								"text": "\"Not Recording\""
+							}
+						}
+					],
+					"sid": 261081517240783
+				}
+			]
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-media-request-approved",
+					"objectClass": "UserMedia",
+					"sid": 227152008906968
+				}
+			],
+			"actions": [
+				{
+					"id": "set-enabled",
+					"objectClass": "Button3",
+					"sid": 931448295145450,
+					"parameters": {
+						"mode": "enabled"
+					}
+				}
+			],
+			"sid": 336815832853387
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-recording-ready",
+					"objectClass": "VideoRecorder",
+					"sid": 155305104043555
+				}
+			],
+			"actions": [
+				{
+					"id": "add-remote-url",
+					"objectClass": "Audio",
+					"sid": 839522142226142,
+					"parameters": {
+						"url": "VideoRecorder.RecordingURL",
+						"type": "VideoRecorder.RecordingType",
+						"name": "\"myrecording\""
+					}
+				},
+				{
+					"id": "set-response-binary",
+					"objectClass": "AJAX",
+					"sid": 146301662940515,
+					"parameters": {
+						"destination": "BinaryData"
+					}
+				},
+				{
+					"id": "request-url",
+					"objectClass": "AJAX",
+					"sid": 616400932251825,
+					"parameters": {
+						"tag": "\"recording\"",
+						"url": "VideoRecorder.RecordingURL"
+					}
+				},
+				{
+					"id": "log",
+					"objectClass": "Browser",
+					"sid": 976528564846688,
+					"parameters": {
+						"type": "log",
+						"message": "\"recording is done\""
+					}
+				},
+				{
+					"id": "add-accept-type",
+					"objectClass": "FileSystem",
+					"sid": 894708288138241,
+					"parameters": {
+						"mime-type": "VideoRecorder.RecordingType",
+						"file-extensions": "VideoRecorder.RecordingFileExtension",
+						"description": "\"Audio files\""
+					}
+				},
+				{
+					"id": "show-save-file-picker",
+					"objectClass": "FileSystem",
+					"sid": 320321205535913,
+					"parameters": {
+						"picker-tag": "\"save\"",
+						"show-accept-all": true,
+						"suggested-name": "\"recording\" & VideoRecorder.RecordingFileExtension",
+						"id": "\"recording\"",
+						"start-in": "documents"
+					}
+				}
+			],
+			"sid": 255996486277607
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-picker-complete",
+					"objectClass": "FileSystem",
+					"sid": 408701509974484,
+					"parameters": {
+						"picker-tag": "\"save\""
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "write-binary-file",
+					"objectClass": "FileSystem",
+					"sid": 243835563160349,
+					"parameters": {
+						"picker-tag": "\"save\"",
+						"folder-path": "\"\"",
+						"file-tag": "\"\"",
+						"data": "BinaryData"
+					}
+				}
+			],
+			"sid": 618132094053072
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "recStart",
+					"sid": 744621614366725
+				}
+			],
+			"actions": [
+				{
+					"type": "script",
+					"script": "startRecording();"
+				}
+			],
+			"sid": 988331967827593
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-clicked",
+					"objectClass": "recEnd",
+					"sid": 367851045411220
+				}
+			],
+			"actions": [
+				{
+					"type": "script",
+					"script": "stopRecordingAndProcess();"
+				}
+			],
+			"sid": 635054040501728
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-key-pressed",
+					"objectClass": "Keyboard",
+					"sid": 176491851496023,
+					"parameters": {
+						"key": 32
+					}
+				}
+			],
+			"actions": [
+				{
+					"id": "tween-one-property",
+					"objectClass": "word",
+					"sid": 116955252204291,
+					"behaviorType": "Tween",
+					"parameters": {
+						"tags": "\"fadeIn\"",
+						"property": "offsetOpacity",
+						"end-value": "100",
+						"time": "2",
+						"ease": "default",
+						"destroy-on-complete": "no",
+						"loop": "no",
+						"ping-pong": "no",
+						"repeat-count": "1"
+					}
+				}
+			],
+			"sid": 892367475860981
+		},
+		{
+			"eventType": "block",
+			"conditions": [
+				{
+					"id": "on-key-pressed",
+					"objectClass": "Keyboard",
+					"sid": 315375617600791,
+					"parameters": {
+						"key": 38
+					}
+				}
+			],
+			"actions": [],
+			"sid": 265481756841485
+		}
+	],
+	"sid": 996281921882922
+}
